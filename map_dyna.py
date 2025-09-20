@@ -92,6 +92,7 @@ for ax in axes + [ax9]:
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Illum. (klx)')
     ax.set_xlim([0, 5])
+    ax.set_xticks([0, 2.5, 5])
     ax.set_ylim([-2, 32])
 
 for cax in conc_axes + [ax9_in]:

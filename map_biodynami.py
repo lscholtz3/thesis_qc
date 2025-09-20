@@ -83,11 +83,12 @@ for ax in axes + [comp_ax]:
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Illum. (klx)')
     ax.set_xlim([0, 5])
+    ax.set_xticks([0, 2.5, 5])
     ax.set_ylim([-2, 32])
 
 for cax in conc_axes + [compax_in]:
     # cax.set_xlabel('Time (min)', labelpad=0.5)
-    cax.set_ylabel('c (µg/mL)', labelpad=0)
+    cax.set_ylabel('c (µg/mL)', labelpad=-0.5)
     cax.set_xlim([0, 1])
     cax.set_ylim([-10, 110])
     cax.tick_params(axis='both', pad=0.5)

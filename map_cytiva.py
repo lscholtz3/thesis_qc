@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.19 in amsterdam
 
-ver = 2.0
+ver = 1.1
 to_save = True
 
 import sys
@@ -21,24 +21,24 @@ alt = ['4', '5', '6']
 files = [
     ['Sera-Mag Streptavidin', '2025.05.13/sera_2', df, df, df, df],
     ['SpeedBead Streptavidin', '2025.05.13/spbd_2', df, df, df, df],
-    ['AMPure XP', '2025.05.09/amp_2', df, df, alt, ['1', '3', '4']]
+    # ['AMPure XP', '2025.05.09/amp_2', df, df, alt, ['1', '3', '4']]
 ]
 
 c_ids = ['w', 'x', 'y', 'z']
 cs = [100, 80, 60, 40]
 
 colors = [purple, cyan, teal, magenta]
-bead_colors = [dark_blue, green, orange]
+bead_colors = [dark_blue, orange]
 
 fig = plt.figure(figsize=(6.5, 3), dpi=dpi_disp)
-gs = gridspec.GridSpec(2, 4, height_ratios=[0.1, 1])
+gs = gridspec.GridSpec(2, 3, height_ratios=[0.1, 1])
 leg_ax = fig.add_subplot(gs[0, :])
 prep_legax([leg_ax])
 
 axes = []
 conc_axes = []
 for r in range(1):
-    for c in range(3):
+    for c in range(2):
         # axes.append(fig.add_subplot(gs[r*2 + 1, c]))
         # conc_axes.append(fig.add_subplot(gs[r*2 + 2, c]))
         axes.append(fig.add_subplot(gs[r+1, c]))
@@ -46,7 +46,7 @@ for r in range(1):
 
         if len(axes) == 8:
             break
-comp_ax = fig.add_subplot(gs[1, 3])
+comp_ax = fig.add_subplot(gs[1, 2])
 compax_in = comp_ax.inset_axes([0.45, 0.2, 0.45, 0.45])
 
 for i in range(len(files)):
@@ -86,6 +86,7 @@ for ax in axes + [comp_ax]:
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Illum. (klx)')
     ax.set_xlim([0, 5])
+    ax.set_xticks([0, 2.5, 5])
     ax.set_ylim([-2, 32])
 
 for cax in conc_axes + [compax_in]:
