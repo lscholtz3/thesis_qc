@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.19 in amsterdam
 
-ver = 1.0
+ver = 1.1
 to_save = True
 
 import sys
@@ -28,8 +28,8 @@ cs = [100, 80, 60, 40]
 colors = [purple, cyan, teal, magenta]
 bead_colors = [orange]
 
-fig = plt.figure(figsize=(4.75, 3), dpi=dpi_disp)
-gs = gridspec.GridSpec(2, 2, height_ratios=[0.1, 1])
+fig = plt.figure(figsize=(2.5, 3), dpi=dpi_disp)
+gs = gridspec.GridSpec(2, 1, height_ratios=[0.1, 1])
 leg_ax = fig.add_subplot(gs[0, :])
 prep_legax([leg_ax])
 
@@ -44,8 +44,8 @@ for r in range(1):
 
         if len(axes) == 8:
             break
-comp_ax = fig.add_subplot(gs[1, 1])
-compax_in = comp_ax.inset_axes([0.45, 0.15, 0.45, 0.45])
+# comp_ax = fig.add_subplot(gs[1, 1])
+# compax_in = comp_ax.inset_axes([0.45, 0.15, 0.45, 0.45])
 
 for i in range(len(files)):
     ax = axes[i]
@@ -77,17 +77,18 @@ for i in range(len(files)):
             conc = calibrate(lux, c0)
             conc_ax.plot(time, conc, color=colors[ci], alpha=1-fi/3)
 
-            if fi == 0 and ci == 0:
-                comp_ax.plot(time, lux, color=bead_colors[i])
-                compax_in.plot(time, conc, color=bead_colors[i])
+            # if fi == 0 and ci == 0:
+            #     comp_ax.plot(time, lux, color=bead_colors[i])
+            #     compax_in.plot(time, conc, color=bead_colors[i])
 
-for ax in axes + [comp_ax]:
+for ax in axes:
     ax.set_xlabel('Time (min)')
     ax.set_ylabel('Illum. (klx)')
     ax.set_xlim([0, 5])
+    ax.set_xticks([0, 2.5, 5])
     ax.set_ylim([-2, 32])
 
-for cax in conc_axes + [compax_in]:
+for cax in conc_axes:
     # cax.set_xlabel('Time (min)', labelpad=0.5)
     cax.set_ylabel('c (µg/mL)', labelpad=0)
     cax.set_xlim([0, 1])
@@ -99,10 +100,10 @@ for k in range(len(cs)):
 for k in range(3):
     leg_ax.plot([], [], marker='s', linestyle='none', markerfacecolor=black,
         alpha=1-k/3, label='Trial {}'.format(k+1), markeredgewidth=0)
-leg_ax.plot([], [], color='w', label=' ')
-for k in range(len(files)):
-    leg_ax.plot([], [], color=bead_colors[k], label=files[k][0])
-leg_ax.legend(loc='center', ncol=5, handlelength=h_length_short,
+# leg_ax.plot([], [], color='w', label=' ')
+# for k in range(len(files)):
+#     leg_ax.plot([], [], color=bead_colors[k], label=files[k][0])
+leg_ax.legend(loc='center', ncol=2, handlelength=h_length_short,
     bbox_to_anchor=(0.47, 0.5))
 
 # --- SAVE FIG ---
