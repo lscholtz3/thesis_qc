@@ -153,8 +153,8 @@ for ax in time_axes:
 handles = []
 labels = []
 for i in range(3):
-    h1, = leg_ax.plot([], [], linestyle='none', marker=markers[i],
-        color=colors[i], label='Trial {}'.format(i+1))
+    h1, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
+        color=time_colors[i], label='Trial {}'.format(i+1))
     # h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
     #     color=time_colors[i])
     # handles.append((h1, h2))
