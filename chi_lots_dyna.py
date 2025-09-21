@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.20 in portree, isle of skye
 
-ver = 1.1
+ver = 1.2
 to_save = True
 
 import sys
@@ -109,8 +109,8 @@ for i in range(len(files)):
         conc_times = []
         for fi in range(len(conc_series)):
             resp_time = calculate_resp_time(path + dir + c_id + conc_series[fi] + '.txt')
-            ax.plot(i, resp_time, linestyle='none', marker=time_markers[fi],
-                markeredgecolor=time_colors[fi])
+            ax.plot(i, resp_time, linestyle='none', marker=markers[fi],
+                markeredgecolor=colors[fi])
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
@@ -133,19 +133,19 @@ for ax in time_axes:
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2])
     ax.set_ylabel('Response Time (s)')
-    ax.set_ylim([23.5, 41.5])
+    ax.set_ylim([23, 42])
     ax.set_yticks([25, 30, 35, 40])
 
 handles = []
 labels = []
 for i in range(3):
     h1, = leg_ax.plot([], [], linestyle='none', marker=markers[i],
-        color=colors[i])
-    h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
-        color=time_colors[i])
-    handles.append((h1, h2))
-    labels.append('Trial {}'.format(i+1))
-leg_ax.legend(handles, labels, ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
+        color=colors[i], label='Trial {}'.format(i+1))
+    # h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
+    #     color=time_colors[i])
+    # handles.append((h1, h2))
+    # labels.append('Trial {}'.format(i+1))
+leg_ax.legend(ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
     handler_map={tuple: HandlerTuple(ndivide=None)})
 
 # --- SAVE FIG ---
