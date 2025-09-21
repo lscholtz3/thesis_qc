@@ -86,7 +86,7 @@ for ax in axes:
     ax.set_xlabel('Lot')
     ax.set_ylabel(r'$\chi_{eff}$')
     ax.set_xlim([-0.5, 2.5])
-    ax.set_xticks([0, 1, 2])
+    ax.set_xticks([0, 1, 2], [1, 2, 3])
     ax.set_ylim([0.35, 2.15])
     ax.set_yticks([0.5, 1.0, 1.5, 2])
 
@@ -131,7 +131,7 @@ for j in range(4):
 for ax in time_axes:
     ax.set_xlabel('Lot')
     ax.set_xlim([-0.5, 2.5])
-    ax.set_xticks([0, 1, 2])
+    ax.set_xticks([0, 1, 2], [1, 2, 3])
     ax.set_ylabel('Response Time (s)')
     ax.set_ylim([23, 42])
     ax.set_yticks([25, 30, 35, 40])

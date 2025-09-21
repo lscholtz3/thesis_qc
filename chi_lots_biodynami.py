@@ -68,8 +68,8 @@ for i in range(len(chis)):
         std_chis[i, j] = np.std(conc_chi)
         # conc = [cs[j], cs[j], cs[j]]
         for k in range(3):
-            ax.plot([i], conc_chi[k], linestyle='none', marker=markers[k],
-                markeredgecolor=colors[k])
+            ax.plot([i], conc_chi[k], linestyle='none', marker=time_markers[k],
+                markeredgecolor=time_colors[k])
 
 print(avg_chis)
 
@@ -116,8 +116,8 @@ for i in range(len(files)):
         conc_times = []
         for fi in range(len(conc_series)):
             resp_time = calculate_resp_time(path + dir + c_id + conc_series[fi] + '.txt')
-            ax.plot(i, resp_time, linestyle='none', marker=markers[fi],
-                markeredgecolor=colors[fi])
+            ax.plot(i, resp_time, linestyle='none', marker=time_markers[fi],
+                markeredgecolor=time_colors[fi])
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
