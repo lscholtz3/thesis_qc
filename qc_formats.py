@@ -1,6 +1,6 @@
 # thesis formatting
 from matplotlib import font_manager as fm
-from numpy import average, log10, sum, mean
+from numpy import average, log10, sum, mean, genfromtxt, min
 from matplotlib import pyplot as plt
 
 ### DIMENSIONS ###
@@ -126,3 +126,16 @@ def calculate_rsq(slope, int, xs, ys):
     ss_total = sum((ys - mean(ys)) ** 2)
     r_sq = 1 - ss_res / ss_total
     return r_sq
+
+def calculate_resp_time(file_path):
+    data = genfromtxt(file_path)
+    time = data[:, 0]
+    lux = data[:, 1]
+
+    rel_lux = lux - min(lux)
+    end_mean = mean(rel_lux[-20:])
+    #end_std_dev = np.std(re_lux[-20:])
+    ninety_threshold = end_mean * 0.9
+    above_times = time[rel_lux >= ninety_threshold]
+
+    return above_times[0] # return first time above threshold
