@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.21 in Stornoway, Isle of Lewis, Scotland
 
-ver = 1.0
+ver = 1.1
 to_save = True
 
 import sys
@@ -85,10 +85,10 @@ for j in range(4):
 
 i = 0
 yranges = [
-    [3.5, 4.0, 4.5, 5.0, 5.5],
-    [3.0, 3.5, 4.0, 4.5, 5.0],
-    [3.0, 3.5, 4.0, 4.5, 5.0],
-    [2.5, 3.0, 3.5, 4.0, 4.5]
+    [3.5, 4.0, 4.5, 5.0],
+    [3.0, 3.5, 4.0, 4.5],
+    [3.0, 3.5, 4.0, 4.5],
+    [2.5, 3.0, 3.5, 4.0]
 ]
 for ax in axes:
     ax.set_xlabel('Lot')
@@ -96,7 +96,7 @@ for ax in axes:
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2], [1, 2, 3])
     ax.set_ylim(yranges[i][0]-0.2, yranges[i][-1]+0.2)
-    ax.set_yticks([yranges[i][0], yranges[i][2], yranges[i][4]])
+    ax.set_yticks(yranges[i])
     i += 1
 
 resp_times = []
@@ -135,10 +135,10 @@ for j in range(4):
     print('for lot 1/3: t-stat: {}, p value {}'.format(res_c.statistic, res_c.pvalue))
 
 yranges = [
-    [45, 55, 65],
-    [50, 60, 70],
-    [55, 65, 75],
-    [60, 70, 80]
+    [45, 50, 55, 60],
+    [50, 55, 60, 65],
+    [55, 60, 65, 70],
+    [60, 65, 70, 75]
 ]
 i = 0
 for ax in time_axes:

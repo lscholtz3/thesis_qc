@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.20 in portree, isle of skye
 
-ver = 1.2
+ver = 1.3
 to_save = True
 
 import sys
@@ -87,8 +87,8 @@ for ax in axes:
     ax.set_ylabel(r'$\chi_{eff}$')
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2], [1, 2, 3])
-    ax.set_ylim([0.35, 2.15])
-    ax.set_yticks([0.5, 1.0, 1.5, 2])
+    ax.set_ylim([0.35, 1.65])
+    ax.set_yticks([0.5, 1.0, 1.5])
 
 resp_times = []
 for i in range(len(files)):
@@ -133,8 +133,8 @@ for ax in time_axes:
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2], [1, 2, 3])
     ax.set_ylabel('Response Time (s)')
-    ax.set_ylim([23, 42])
-    ax.set_yticks([25, 30, 35, 40])
+    ax.set_ylim([23, 37])
+    ax.set_yticks([25, 30, 35])
 
 handles = []
 labels = []
