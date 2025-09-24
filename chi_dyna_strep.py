@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.21 in Stornoway, Isle of Lewis, Scotland
 
-ver = 1.1
+ver = 1.2
 to_save = True
 
 import sys
@@ -42,8 +42,8 @@ cs = [100, 80, 60, 40]
 colors = [cyan, teal, pink, purple]
 markers = ['o', 'D', 's', '^']
 
-fig = plt.figure(figsize=(6.5, 4), dpi=dpi_disp)
-gs = gridspec.GridSpec(3, 4, height_ratios=[0.25, 1, 1])
+fig = plt.figure(figsize=(6.5, 3.5), dpi=dpi_disp)
+gs = gridspec.GridSpec(3, 4, height_ratios=[0.35, 1, 1])
 leg_ax = fig.add_subplot(gs[0, :])
 prep_legax([leg_ax])
 
@@ -80,6 +80,10 @@ for j in range(4):
         for k in range(i+1, 4):
             res = ttest(chis[i][j], chis[k][j])
             if res.pvalue < 0.05:
+                print('*', end='')
+            if res.pvalue < 0.005:
+                print('*', end='')
+            if res.pvalue < 0.0005:
                 print('*', end='')
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
@@ -127,6 +131,10 @@ for j in range(4):
             res = ttest(chis[i][j], chis[k][j])
             if res.pvalue < 0.05:
                 print('*', end='')
+            if res.pvalue < 0.005:
+                print('*', end='')
+            if res.pvalue < 0.0005:
+                print('*', end='')
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 yranges = [
@@ -142,7 +150,7 @@ for ax in time_axes:
     ax.set_yticks(yranges[0])
     ax.set_xlabel('Product Number')
     ax.set_xlim([-0.5, 3.5])
-    ax.set_xticks([0, 1, 2, 3], ['M-280', 'M-270', 'MyOne T1', 'MyOne C1'], rotation=60)
+    ax.set_xticks([0, 1, 2, 3], ['280', '270', 'T1', 'C1'])
 
     i += 1
 
@@ -159,7 +167,7 @@ leg_ax.legend(ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
     handler_map={tuple: HandlerTuple(ndivide=None)})
 
 # --- SAVE FIG ---
-plt.tight_layout(pad=pad_loose)
+plt.tight_layout(pad=pad_tight)
 plt.subplots_adjust(hspace=0)
 fig.align_ylabels()
 
