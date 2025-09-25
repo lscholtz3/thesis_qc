@@ -2,6 +2,7 @@
 from matplotlib import font_manager as fm
 from numpy import average, log10, sum, mean, genfromtxt, min
 from matplotlib import pyplot as plt
+from matplotlib.legend_handler import HandlerLine2D, HandlerTuple
 
 ### DIMENSIONS ###
 full_width = 6.25
@@ -52,6 +53,8 @@ vib_full = [darker_blue, dark_blue, cyan, teal, green, yellow,
 vib_colors = [darker_blue, cyan, green, orange, red, purple, vib_grey]
 vib_ordered = [orange, dark_blue, cyan, magenta, red, teal, vib_grey]
 vib_3 = [cyan, teal, red]
+trial_colors = [purple, cyan, orange]
+trial_markers = ['o', 'D', 's']
 
 ### FONTS ###
 fs = 10 # font-size
@@ -87,7 +90,9 @@ plt.rcParams.update({'font.size': ticks_fs, 'font.family': 'Avenir',
     'lines.markerfacecolor': 'none', 'lines.markersize': m_size,
     'lines.markeredgewidth': m_width, 'legend.borderpad': borderpad,
     'legend.edgecolor': black, 'legend.handlelength': h_length,
-    'mathtext.default': 'regular'})
+    'mathtext.default': 'regular',
+})
+
 
 
 
