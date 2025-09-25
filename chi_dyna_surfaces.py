@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.22 in Stornoway, Isle of Lewis, Scotland
 
-ver = 1.0
+ver = 2.0
 to_save = True
 
 import sys
@@ -37,9 +37,6 @@ c_ids = ['w', 'x', 'y', 'z']
 
 cs = [100, 80, 60, 40]
 
-colors = [cyan, teal, pink, purple]
-markers = ['o', 'D', 's', '^']
-
 fig = plt.figure(figsize=(6.5, 3.25), dpi=dpi_disp)
 gs = gridspec.GridSpec(3, 4, height_ratios=[0.5, 1, 1])
 leg_ax = fig.add_subplot(gs[0, :])
@@ -66,8 +63,8 @@ for i in range(len(chis)):
         std_chis[i, j] = np.std(conc_chi)
         # conc = [cs[j], cs[j], cs[j]]
         for k in range(3):
-            ax.plot([i], conc_chi[k], linestyle='none', marker=markers[k],
-                markeredgecolor=colors[k])
+            ax.plot([i], conc_chi[k], linestyle='none', marker=trial_markers[k],
+                markeredgecolor=trial_colors[k])
 
 print(avg_chis)
 
@@ -87,12 +84,12 @@ for j in range(4):
 
 i = 0
 yranges = [
-    [0, 2, 4],
+    [0, 1, 2, 3],
 ]
 for ax in axes:
     ax.set_xlim([-0.5, 2.5])
     ax.set_ylabel(r'$\chi_{eff}$')
-    ax.set_ylim(yranges[0][0]-0.4, yranges[0][-1]+0.4)
+    ax.set_ylim(yranges[0][0]-0.3, yranges[0][-1]+0.3)
     ax.set_yticks(yranges[0])
     i += 1
 
@@ -113,8 +110,8 @@ for i in range(len(files)):
         conc_times = []
         for fi in range(len(conc_series)):
             resp_time = calculate_resp_time(path + dir + c_id + conc_series[fi] + '.txt')
-            ax.plot(i, resp_time, linestyle='none', marker=markers[fi],
-                markeredgecolor=colors[fi])
+            ax.plot(i, resp_time, linestyle='none', marker=trial_markers[fi],
+                markeredgecolor=trial_colors[fi])
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
@@ -136,12 +133,12 @@ for j in range(4):
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 yranges = [
-    [0, 25, 50],
+    [0, 15, 30],
 ]
 i = 0
 for ax in time_axes:
     ax.set_ylabel('Response Time (s)')
-    ax.set_ylim(yranges[0][0]-5, yranges[0][-1]+5)
+    ax.set_ylim(yranges[0][0]-3, yranges[0][-1]+3)
     ax.set_yticks(yranges[0])
     ax.set_xlabel('Surface Coating')
     ax.set_xlim([-0.5, 2.5])
@@ -152,12 +149,9 @@ for ax in time_axes:
 handles = []
 labels = []
 for i in range(3):
-    h1, = leg_ax.plot([], [], linestyle='none', marker=markers[i],
-        color=colors[i], label='Trial {}'.format(i+1))
-    # h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
-    #     color=time_colors[i])
-    # handles.append((h1, h2))
-    # labels.append('Trial {}'.format(i+1))
+    h1, = leg_ax.plot([], [], linestyle='none', marker=trial_markers[i],
+        color=trial_colors[i], label='Trial {}'.format(i+1))
+
 leg_ax.legend(ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
     handler_map={tuple: HandlerTuple(ndivide=None)})
 
