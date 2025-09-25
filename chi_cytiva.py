@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.24 on the road somewhere in the Isle of Lewis, Scotland
 
-ver = 2.0
+ver = 2.1
 to_save = True
 
 import sys
@@ -80,9 +80,9 @@ for j in range(4):
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 i = 0
-yr = 3 * 0.1
+yr = 5 * 0.1
 yranges = [
-    [2, 3, 4, 5],
+    [0, 3, 6],
     [2, 3, 4, 5],
     [2, 3, 4, 5],
     [1, 2, 3, 4],
@@ -90,8 +90,8 @@ yranges = [
 for ax in axes:
     ax.set_xlim([-0.5, 1.5])
     ax.set_ylabel(r'$\chi_{eff}$')
-    ax.set_ylim(yranges[i][0]-yr, yranges[i][-1]+yr)
-    ax.set_yticks(yranges[i])
+    ax.set_ylim(yranges[0][0]-yr, yranges[0][-1]+yr)
+    ax.set_yticks(yranges[0])
     i += 1
 
 resp_times = []
@@ -133,9 +133,9 @@ for j in range(4):
                 print('*', end='')
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
-yr = 60 * 0.1
+yr = 100 * 0.1
 yranges = [
-    [40, 65, 90],
+    [0, 55, 110],
     [45, 70, 95],
     [50, 75, 100],
     [60, 85, 110]
@@ -143,8 +143,8 @@ yranges = [
 i = 0
 for ax in time_axes:
     ax.set_ylabel('Response Time (s)')
-    ax.set_ylim(yranges[i][0]-yr, yranges[i][-1]+yr)
-    ax.set_yticks(yranges[i])
+    ax.set_ylim(yranges[0][0]-yr, yranges[0][-1]+yr)
+    ax.set_yticks(yranges[0])
     ax.set_xlabel('MNP')
     ax.set_xlim([-0.5, 1.5])
     ax.set_xticks([0, 1], ['SM', 'SB'])
