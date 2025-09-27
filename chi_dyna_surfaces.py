@@ -123,7 +123,7 @@ for j in range(4):
     print('for conc {} µg/mL:'.format(conc))
     for i in range(3):
         for k in range(i+1, 3):
-            res = ttest(chis[i][j], chis[k][j])
+            res = ttest(resp_times[i][j], resp_times[k][j])
             if res.pvalue < 0.05:
                 print('*', end='')
             if res.pvalue < 0.005:
