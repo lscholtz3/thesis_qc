@@ -88,19 +88,14 @@ for j in range(4):
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 i = 0
-yranges = [
-    [3.5, 4.0, 4.5, 5.0],
-    [3.0, 3.5, 4.0, 4.5],
-    [3.0, 3.5, 4.0, 4.5],
-    [2.5, 3.0, 3.5, 4.0]
-]
+yrange = [0, 2.5, 5.0]
 for ax in axes:
     ax.set_xlabel('Lot')
     ax.set_ylabel(r'$\chi_{eff}$')
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2], [1, 2, 3])
-    ax.set_ylim(yranges[i][0]-0.2, yranges[i][-1]+0.2)
-    ax.set_yticks(yranges[i])
+    ax.set_ylim(yrange[0]-0.5, yrange[-1]+0.5)
+    ax.set_yticks(yrange)
     i += 1
 
 resp_times = []
@@ -145,20 +140,15 @@ for j in range(4):
                 print('*', end='')
             print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
-yranges = [
-    [45, 50, 55, 60],
-    [50, 55, 60, 65],
-    [55, 60, 65, 70],
-    [60, 65, 70, 75]
-]
+yrange= [0, 40, 80]
 i = 0
 for ax in time_axes:
     ax.set_xlabel('Lot')
     ax.set_xlim([-0.5, 2.5])
     ax.set_xticks([0, 1, 2], [1, 2, 3])
     ax.set_ylabel('Response Time (s)')
-    ax.set_ylim(yranges[i][0]-2.5, yranges[i][-1]+2.5)
-    ax.set_yticks(yranges[i])
+    ax.set_ylim(yrange[0]-8, yrange[-1]+8)
+    ax.set_yticks(yrange)
     i += 1
 
 handles = []
