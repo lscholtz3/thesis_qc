@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.21 in Stornoway, Isle of Lewis, Scotland
 
-ver = 1.1
+ver = 2.0
 to_save = True
 
 import sys
@@ -68,20 +68,24 @@ for i in range(len(chis)):
         std_chis[i, j] = np.std(conc_chi)
         # conc = [cs[j], cs[j], cs[j]]
         for k in range(3):
-            ax.plot([i], conc_chi[k], linestyle='none', marker=time_markers[k],
-                markeredgecolor=time_colors[k])
+            ax.plot([i], conc_chi[k], linestyle='none', marker=trial_markers[k],
+                markeredgecolor=trial_colors[k])
 
 print(avg_chis)
 
 for j in range(4):
     conc = cs[j]
     print('for conc {} µg/mL:'.format(conc))
-    res_a = ttest(chis[0][j], chis[1][j])
-    print('for lot 1/2: t-stat: {}, p value {}'.format(res_a.statistic, res_a.pvalue))
-    res_b = ttest(chis[1][j], chis[2][j])
-    print('for lot 2/3: t-stat: {}, p value {}'.format(res_b.statistic, res_b.pvalue))
-    res_c = ttest(chis[0][j], chis[2][j])
-    print('for lot 1/3: t-stat: {}, p value {}'.format(res_c.statistic, res_c.pvalue))
+    for i in range(len(files)):
+        for k in range(i+1, len(files)):
+            res = ttest(chis[i][j], chis[k][j])
+            if res.pvalue < 0.05:
+                print('*', end='')
+            if res.pvalue < 0.005:
+                print('*', end='')
+            if res.pvalue < 0.0005:
+                print('*', end='')
+            print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 i = 0
 yranges = [
@@ -116,23 +120,30 @@ for i in range(len(files)):
         conc_times = []
         for fi in range(len(conc_series)):
             resp_time = calculate_resp_time(path + dir + c_id + conc_series[fi] + '.txt')
-            ax.plot(i, resp_time, linestyle='none', marker=time_markers[fi],
-                markeredgecolor=time_colors[fi])
+            ax.plot(i, resp_time, linestyle='none', marker=trial_markers[fi],
+                markeredgecolor=trial_colors[fi])
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
     resp_times.append(series_times)
 
 print('\n\nRESPONSE TIMES')
+print(resp_times[0][1])
+print(resp_times[1][1])
+print(resp_times[2][1])
 for j in range(4):
     conc = cs[j]
     print('for conc {} µg/mL:'.format(conc))
-    res_a = ttest(resp_times[0][j], resp_times[1][j])
-    print('for lot 1/2: t-stat: {}, p value {}'.format(res_a.statistic, res_a.pvalue))
-    res_b = ttest(resp_times[1][j], resp_times[2][j])
-    print('for lot 2/3: t-stat: {}, p value {}'.format(res_b.statistic, res_b.pvalue))
-    res_c = ttest(resp_times[0][j], resp_times[2][j])
-    print('for lot 1/3: t-stat: {}, p value {}'.format(res_c.statistic, res_c.pvalue))
+    for i in range(len(files)):
+        for k in range(i+1, len(files)):
+            res = ttest(resp_times[i][j], resp_times[k][j])
+            if res.pvalue < 0.05:
+                print('*', end='')
+            if res.pvalue < 0.005:
+                print('*', end='')
+            if res.pvalue < 0.0005:
+                print('*', end='')
+            print('for lot {}/{}: t-stat: {}, p value {}'.format(i, k, res.statistic, res.pvalue))
 
 yranges = [
     [45, 50, 55, 60],
@@ -153,12 +164,9 @@ for ax in time_axes:
 handles = []
 labels = []
 for i in range(3):
-    h1, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
-        color=time_colors[i], label='Trial {}'.format(i+1))
-    # h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
-    #     color=time_colors[i])
-    # handles.append((h1, h2))
-    # labels.append('Trial {}'.format(i+1))
+    h1, = leg_ax.plot([], [], linestyle='none', marker=trial_markers[i],
+        color=trial_colors[i], label='Trial {}'.format(i+1))
+
 leg_ax.legend(ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
     handler_map={tuple: HandlerTuple(ndivide=None)})
 
