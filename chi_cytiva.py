@@ -4,7 +4,7 @@
 # Created 2025.09.24 on the road somewhere in the Isle of Lewis, Scotland
 
 ver = 2.1
-to_save = True
+to_save = False
 
 import sys
 import numpy as np
@@ -63,7 +63,10 @@ for i in range(len(chis)):
             ax.plot([i], conc_chi[k], linestyle='none', marker=trial_markers[k],
                 markeredgecolor=trial_colors[k])
 
+print('chis:\navgs:')
 print(avg_chis)
+print('stds:')
+print(std_chis)
 
 for j in range(4):
     conc = cs[j]
@@ -94,7 +97,10 @@ for ax in axes:
     ax.set_yticks(yranges[0])
     i += 1
 
+avg_times = np.zeros([len(chis), 4])
+std_times = np.zeros([len(chis), 4])
 resp_times = []
+
 for i in range(len(files)):
     series = files[i]
     series_name = series[0]
@@ -116,7 +122,16 @@ for i in range(len(files)):
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
+
+        avg_times[i, ci] = np.mean(conc_times)
+        std_times[i, ci] = np.std(conc_times)
     resp_times.append(series_times)
+
+
+print('response times:\navgs:')
+print(avg_times)
+print('stds:')
+print(std_times)
 
 print('\n\nRESPONSE TIMES')
 for j in range(4):
