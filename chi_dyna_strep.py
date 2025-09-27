@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.21 in Stornoway, Isle of Lewis, Scotland
 
-ver = 1.2
+ver = 2.0
 to_save = True
 
 import sys
@@ -68,8 +68,8 @@ for i in range(len(chis)):
         std_chis[i, j] = np.std(conc_chi)
         # conc = [cs[j], cs[j], cs[j]]
         for k in range(3):
-            ax.plot([i], conc_chi[k], linestyle='none', marker=markers[k],
-                markeredgecolor=colors[k])
+            ax.plot([i], conc_chi[k], linestyle='none', marker=trial_markers[k],
+                markeredgecolor=trial_colors[k])
 
 print(avg_chis)
 
@@ -115,8 +115,8 @@ for i in range(len(files)):
         conc_times = []
         for fi in range(len(conc_series)):
             resp_time = calculate_resp_time(path + dir + c_id + conc_series[fi] + '.txt')
-            ax.plot(i, resp_time, linestyle='none', marker=markers[fi],
-                markeredgecolor=colors[fi])
+            ax.plot(i, resp_time, linestyle='none', marker=trial_markers[fi],
+                markeredgecolor=trial_colors[fi])
             conc_times.append(resp_time)
 
         series_times.append(conc_times)
@@ -128,7 +128,7 @@ for j in range(4):
     print('for conc {} µg/mL:'.format(conc))
     for i in range(4):
         for k in range(i+1, 4):
-            res = ttest(chis[i][j], chis[k][j])
+            res = ttest(resp_times[i][j], resp_times[k][j])
             if res.pvalue < 0.05:
                 print('*', end='')
             if res.pvalue < 0.005:
@@ -157,12 +157,9 @@ for ax in time_axes:
 handles = []
 labels = []
 for i in range(3):
-    h1, = leg_ax.plot([], [], linestyle='none', marker=markers[i],
-        color=colors[i], label='Trial {}'.format(i+1))
-    # h2, = leg_ax.plot([], [], linestyle='none', marker=time_markers[i],
-    #     color=time_colors[i])
-    # handles.append((h1, h2))
-    # labels.append('Trial {}'.format(i+1))
+    h1, = leg_ax.plot([], [], linestyle='none', marker=trial_markers[i],
+        color=trial_colors[i], label='Trial {}'.format(i+1))
+
 leg_ax.legend(ncol=3, loc='center', bbox_to_anchor=(0.5, 1.0),
     handler_map={tuple: HandlerTuple(ndivide=None)})
 
