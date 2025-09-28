@@ -107,8 +107,13 @@ def prep_legax(leg_axes):
         leg_ax.spines['bottom'].set_visible(False)
         leg_ax.tick_params(left=False, bottom=False, labelleft=False, labelbottom=False)
 
-n = 20
+# file processing stuff
+df = ['1', '2', '3'] # default
+alt = ['4', '5', '6']
+c_ids = ['w', 'x', 'y', 'z']
+cs = [100, 80, 60, 40]
 
+n = 20
 def calibrate(lux, c0):
     # convert to transmission
     e_0 = average(lux[-n:]) # "water" value
