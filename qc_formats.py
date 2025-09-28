@@ -93,7 +93,10 @@ plt.rcParams.update({'font.size': ticks_fs, 'font.family': 'Avenir',
     'mathtext.default': 'regular',
 })
 
-
+# for tuples in legends, use this import statement:
+# from matplotlib.legend_handler import HandlerLine2D, HandlerTuple
+# and add this as an argument to the leg_ax.legend() call:
+# handler_map={tuple: HandlerTuple(ndivide=None)}
 
 
 def prep_legax(leg_axes):
