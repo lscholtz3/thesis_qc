@@ -69,7 +69,7 @@ ax1_in.set_yticks([0, 50, 100])
 ax2.set_xlabel('Condition')
 ax2.set_xlim([-0.5, 1.5])
 ax2.set_xticks([0, 1], ['Unwashed', 'Washed'])
-ax2.set_ylabel(r'$\Delta$Illum.')
+ax2.set_ylabel(r'$\Delta$Illum. (klx)')
 ax2.set_ylim([0, 15])
 ax2.set_yticks([0, 5, 10, 15])
 
