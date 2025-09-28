@@ -19,7 +19,7 @@ path = '../../../../../armani_lab/research/qcMAP/qc_data/'
 df = ['1', '2', '3'] # default
 alt = ['4', '5', '6']
 files = [
-    ['Carboxylic Acid', '2025.04.29/dca_2', df, df, df, df],
+    ['Dynabeads', '2025.04.29/dca_2', df, df, df, df],
     ['AMPure XP', '2025.05.09/amp_2', df, df, alt, ['1', '3', '4']],
     ['BioDyanmi Lot 1', '2025.05.12/bio1', alt, alt, df, df],
 ]
