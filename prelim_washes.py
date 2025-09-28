@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.28
 
-ver = 1.0
+ver = 1.1
 to_save = True
 
 import sys
@@ -18,18 +18,18 @@ path = '../../../../../armani_lab/research/qcMAP/qc_data/'
 dir = '2025.03.07/'
 unwashed = ['d82c4', 'd82c5', 'd82c6']
 washed = ['d82wash1', 'd82wash2', 'd82wash3']
-labels = ['Unwashed', 'Washed', '']
+labels = ['Trial 1', 'Trial 2', 'Trial 3']
 files = [unwashed, washed]
 # label, dir, file_prefix, ws, xs, ys, zs
 
-colors = [darker_blue, red, 'w']
+colors = [[red, magenta, pink], [darker_blue, dark_blue, cyan]]
 
 fig = plt.figure(figsize=(4, 3), dpi=dpi_disp)
 gs = gridspec.GridSpec(2, 2, height_ratios=[0.1, 1], width_ratios=[1, 0.6])
 leg_ax = fig.add_subplot(gs[0, :])
 prep_legax([leg_ax])
 
-in_ax_coords = [0.45, 0.2, 0.45, 0.45]
+in_ax_coords = [0.45, 0.15, 0.45, 0.45]
 ax1 = fig.add_subplot(gs[1, 0])
 ax1_in = ax1.inset_axes(in_ax_coords)
 ax2 = fig.add_subplot(gs[1, 1])
@@ -42,17 +42,17 @@ for i in range(len(files)):
         time = data[:, 0] / 60 # convert to min
         lux = data[:, 1] / 1000 # convert to klx
 
-        ms = 0.75
-        ax1.plot(time, lux, color=colors[i], linestyle='none', marker='.',
-            markersize=ms, alpha=1-fi/3)
+        ms = 0.5
+        ax1.plot(time, lux, color=colors[i][fi], linestyle='none', marker='.',
+            markersize=ms)
         conc = calibrate(lux, 100)
         ax1_in.plot(time, conc, marker='.', linestyle='none', markersize=ms,
-            color=colors[i], alpha=1-fi/3)
+            color=colors[i][fi])
 
         delta = np.mean(lux[:-n]) - np.min(lux)
+        print(delta)
         ax2.plot(i, delta, linestyle='none', marker=trial_markers[fi],
-            markeredgecolor=colors[i], alpha=1-fi/3)
-
+            markeredgecolor=colors[i][fi])
 
 ax1.set_xlabel('Time (min)')
 ax1.set_ylabel('Illum. (klx)')
@@ -63,15 +63,22 @@ ax1.set_yticks([0, 10, 20, 30])
 
 ax1_in.tick_params(axis='both', pad=0.5)
 ax1_in.set_xlim([0, 1])
-ax1_in.set_ylim([0, 100])
+ax1_in.set_ylim([-10, 110])
 ax1_in.set_yticks([0, 50, 100])
 
+ax2.set_xlabel('Condition')
+ax2.set_xlim([-0.5, 1.5])
+ax2.set_xticks([0, 1], ['Unwashed', 'Washed'])
+ax2.set_ylabel(r'$\Delta$Illum.')
+ax2.set_ylim([0, 15])
+ax2.set_yticks([0, 5, 10, 15])
+
+leg_ax.plot([], [], linestyle='none', label='Unwashed')
+leg_ax.plot([], [], linestyle='none', label='Washed')
 for k in range(3):
-    leg_ax.plot([], [], color=colors[k], label=labels[k])
-    leg_ax.plot([], [], marker='s', linestyle='none', markerfacecolor=black,
-        alpha=1-k/3, label='Trial {}'.format(k+1), markeredgewidth=0)
-leg_ax.plot([], [], color='w', label=' ')
-leg_ax.legend(loc='center', ncol=5, handlelength=h_length_short)
+    leg_ax.plot([], [], color=colors[0][k], label=labels[k])
+    leg_ax.plot([], [], color=colors[1][k], label=labels[k])
+leg_ax.legend(loc='center', ncol=4, handlelength=h_length_short)
 
 # --- SAVE FIG ---
 plt.tight_layout(pad=pad_loose, h_pad=2)
