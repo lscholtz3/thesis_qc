@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.28
 
-ver = 1.1
+ver = 1.2
 to_save = True
 
 import sys
@@ -24,7 +24,7 @@ files = [unwashed, washed]
 
 colors = [[red, magenta, pink], [darker_blue, dark_blue, cyan]]
 
-fig = plt.figure(figsize=(4, 3), dpi=dpi_disp)
+fig = plt.figure(figsize=(4, 2.5), dpi=dpi_disp)
 gs = gridspec.GridSpec(2, 2, height_ratios=[0.1, 1], width_ratios=[1, 0.6])
 leg_ax = fig.add_subplot(gs[0, :])
 prep_legax([leg_ax])
@@ -55,12 +55,13 @@ for i in range(len(files)):
             markeredgecolor=colors[i][fi])
 
 ax1.set_xlabel('Time (min)')
-ax1.set_ylabel('Illum. (klx)')
+ax1.set_ylabel('Illuminance (klx)')
 ax1.set_xlim([0, 5])
 ax1.set_xticks([0, 2.5, 5])
 ax1.set_ylim([-2, 32])
 ax1.set_yticks([0, 10, 20, 30])
 
+ax1_in.set_ylabel('c (µg/mL)', labelpad=0.5)
 ax1_in.tick_params(axis='both', pad=0.5)
 ax1_in.set_xlim([0, 1])
 ax1_in.set_ylim([-10, 110])
@@ -69,7 +70,7 @@ ax1_in.set_yticks([0, 50, 100])
 ax2.set_xlabel('Condition')
 ax2.set_xlim([-0.5, 1.5])
 ax2.set_xticks([0, 1], ['Unwashed', 'Washed'])
-ax2.set_ylabel(r'$\Delta$Illum. (klx)')
+ax2.set_ylabel(r'$\Delta$Illuminance (klx)')
 ax2.set_ylim([0, 15])
 ax2.set_yticks([0, 5, 10, 15])
 
