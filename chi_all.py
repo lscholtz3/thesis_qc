@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.28
 
-ver = 1.0
+ver = 1.1
 to_save = True
 
 import sys
@@ -19,10 +19,10 @@ path = '../../../../../armani_lab/research/qcMAP/qc_data/'
 # order given in labels
 files = [
     ['SB', [4.5390, 4.2330, 4.3991], [4.0411, 3.9834, 3.9852], [3.6423, 3.4971, 3.4971], [3.0359, 2.8756, 2.9334]], # speedbead
-    ['BD-1', [4.2965, 4.0717, 4.0859], [3.9145, 3.6592, 3.7009], [3.3628, 3.3189, 3.3514], [2.7022, 3.0075, 2.9305]], # biodynami 1
     ['BD-2', [4.4124, 4.1228, 4.2719], [4.0964, 3.9435, 3.9039], [3.6002, 3.4428, 3.4182], [2.8203, 2.7247, 2.7923]], # biodynami 2
-    ['BD-3', [4.2287, 4.1348, 4.1800], [3.9223, 3.7326, 3.8294], [3.4125, 3.3902, 3.2957], [3.1781, 3.0421, 2.7787]], # biodynami 3
     ['C1', [4.2972, 4.1538, 4.1489], [3.7710, 3.7127, 3.8298], [3.1780, 3.2652, 3.2733], [2.6974, 2.8244, 2.7765]], # dy myone c1
+    ['BD-3', [4.2287, 4.1348, 4.1800], [3.9223, 3.7326, 3.8294], [3.4125, 3.3902, 3.2957], [3.1781, 3.0421, 2.7787]], # biodynami 3
+    ['BD-1', [4.2965, 4.0717, 4.0859], [3.9145, 3.6592, 3.7009], [3.3628, 3.3189, 3.3514], [2.7022, 3.0075, 2.9305]], # biodynami 1
     ['T1', [3.8680, 3.9787, 3.8539], [3.3483, 3.5955, 3.5906], [2.6669, 3.1809, 3.1692], [2.2827, 2.8246, 2.7846]], # dy myone t1
     ['AMP', [3.1437, 3.1912, 3.2796], [2.7412, 3.1051, 2.9845], [2.9971, 2.7717, 2.7306], [1.7762, 2.3993, 1.9013]], # ampure
     ['SM', [2.9210, 2.7516, 2.8778], [2.5510, 2.4461, 2.4030], [2.3799, 2.2971, 2.3184], [2.0624, 2.0341, 1.9753]], # sera-mag
@@ -35,33 +35,41 @@ files = [
 ]
 colors = [darker_blue, darker_blue, darker_blue, dark_blue, cyan, teal, green, yellow,
     orange, red, pink, pink, pink, purple]
+conc_colors = [purple, cyan, orange, red]
+labels = [f[0] for f in files]
 
-fig = plt.figure(figsize=(6.5, 4), dpi=dpi_disp)
-gs = gridspec.GridSpec(2, 2, height_ratios=[1, 1])
-leg_ax = fig.add_subplot(gs[0, :])
-prep_legax([leg_ax])
-
-axes = []
-for i in range(2):
-    for j in range(2):
-        axes.append(fig.add_subplot(gs[i, j]))
+fig = plt.figure(figsize=(5.5, 3.5), dpi=dpi_disp)
+gs = gridspec.GridSpec(1, 1)
+ax = fig.add_subplot(gs[0, 0])
 
 for i in range(len(files)):
     conc_series = files[i][1:]
-    c = colors[i]
 
     for fi in range(len(conc_series)):
         conc_chis = conc_series[fi]
-        ax = axes[fi]
-
+        c = conc_colors[fi]
         avg = np.mean(conc_chis)
         std = np.std(conc_chis)
         ax.errorbar(i, avg, std, linestyle='none',
             marker='o', markeredgecolor=c,
             capsize=m_size-1, ecolor=c, elinewidth=l_width)
 
+ax.set_xlabel('MNP')
+ax.set_ylabel(r'$\chi_{eff}$')
+ax.set_ylim([0, 5])
+ax.set_yticks([0, 1, 2, 3, 4, 5])
+ax.set_xlim([-0.5, len(files)-0.5])
+ax.set_xticks(range(len(files)), labels, rotation=45)
+
+for k in range(4):
+    c = conc_colors[k]
+    ax.errorbar(-10, -10, 10, linestyle='none', marker='o', markeredgecolor=c,
+        capsize=m_size-1, ecolor=c, elinewidth=l_width,
+        label='{:d} µg/mL'.format(cs[k]))
+ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncol=4)
+
 # --- SAVE FIG ---
-plt.tight_layout(pad=pad_loose, h_pad=2)
+plt.tight_layout(pad=pad_loose)
 
 img_name = '../subgraphics/' + sys.argv[0][:-3] + '_' + str(ver) + '.png'
 
