@@ -3,7 +3,7 @@
 # Lexie Scholtz
 # Created 2025.09.28
 
-ver = 1.2
+ver = 1.3
 to_save = True
 
 import sys
@@ -42,12 +42,12 @@ for i in range(len(files)):
         time = data[:, 0] / 60 # convert to min
         lux = data[:, 1] / 1000 # convert to klx
 
-        ms = 0.5
+        ms = 4
         ax1.plot(time, lux, color=colors[i][fi], linestyle='none', marker='.',
-            markersize=ms)
+            markersize=ms, markeredgewidth=0, markerfacecolor=colors[i][fi])
         conc = calibrate(lux, 100)
         ax1_in.plot(time, conc, marker='.', linestyle='none', markersize=ms,
-            color=colors[i][fi])
+            color=colors[i][fi], markeredgewidth=0, markerfacecolor=colors[i][fi])
 
         delta = np.mean(lux[:-n]) - np.min(lux)
         print(delta)
